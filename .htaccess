@@ -1,0 +1,39 @@
+# set COR
+header set Access-Control-Allow-Origin "*"
+header set Access-Control-Allow-Methods "GET, POST"
+header set Access-Control-Allow-Credentials "true"
+header set Access-Control-Allow-Headers "X-Requested-With, Authorization, Content-Type, x-xsrf-token, x_csrftoken, Cache-Control"
+
+#To prevent user from seeing directory,
+  Options -Indexes
+
+# To disable directory browsing
+  Options All -Indexes
+
+#To prevent folder listing
+  IndexIgnore *
+
+#dont show data.xml
+<FilesMatch "^data.xml$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+
+#dont show settings.json
+<FilesMatch "^settings.json$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+
+#FOR ERROR REPORTING
+#php_flag display_errors off
+php_value date.timezone Africa/Lagos
+
+# FOR URL REWRITING
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+# for index
+#RewriteRule ^([\w]*)/([\w]*)/?$ index.php?status=$1&page=$2
+RewriteRule ^([\w]*)/?$ index.php
+</IfModule>
